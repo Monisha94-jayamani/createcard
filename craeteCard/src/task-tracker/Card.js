@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 
-const Card = ({ day, createTask, toggleTask }) => {
+
+const Card = ({ day, createTask, toggleTask,remove,removeTask }) => {
   const [task, setTask] = useState("");
+  
 
   return (
     <div className="each-day">
       <h2>{day.title}</h2>
+
 
       <input
         type="text"
@@ -31,11 +34,17 @@ const Card = ({ day, createTask, toggleTask }) => {
             >
               <h3 className={task.completed === true ? "line" : ""}>
                 {task.title}
+                <button onClick={()=>{removeTask()}}>delete</button>
               </h3>
+              
             </div>
           );
         })}
       </div>
+      <button  onClick={(_) => {
+          remove()
+          
+        }}>delete</button>
     </div>
   );
 };
