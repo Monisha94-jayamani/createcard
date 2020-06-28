@@ -9,6 +9,7 @@ const App = () => {
   const [days, setDays] = useState([]);
 
   const [state, setState] = useState("VIEW");
+  const remove=(index)=>{setDays(days.filter((count, i) => index !== i))}
 
   const createDay = (value) => {
     // value shoud be day title
@@ -43,6 +44,24 @@ const App = () => {
     setDays(newDays);
   };
 
+  const removeTask = (dayIndex, taskIndex) => {
+    setDays(
+      days.map((day, index) => {
+        if (index === dayIndex) {
+          return {
+            ...day,
+            tasks: day.tasks.filter((task, index) => {
+              if (index === taskIndex) {
+                return false;
+              } else return true;
+            }),
+          };
+        }
+        return day;
+      })
+    );
+  };
+
   const toggleTask = (dayIndex, taskIndex) => {
     setDays(
       days.map((day, index) => {
@@ -69,6 +88,8 @@ const App = () => {
             days={days}
             createTask={createTask}
             toggleTask={toggleTask}
+            remove={remove}
+            removeTask={removeTask}
           />
         </React.Fragment>
       ) : (
