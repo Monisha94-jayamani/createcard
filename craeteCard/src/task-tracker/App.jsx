@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import "./app.css";
 
 import Nav from "./Nav";
 import Tracker from "./Tracker";
 import NewCard from "./NewCard";
+import "./App.css";
 
 const App = () => {
   const [days, setDays] = useState([]);
 
   const [state, setState] = useState("VIEW");
-  const remove=(index)=>{setDays(days.filter((count, i) => index !== i))}
-
+  const remove = (index) => {
+    setDays(days.filter((count, i) => index !== i));
+  };
   const createDay = (value) => {
     // value shoud be day title
 
@@ -44,24 +45,6 @@ const App = () => {
     setDays(newDays);
   };
 
-  const removeTask = (dayIndex, taskIndex) => {
-    setDays(
-      days.map((day, index) => {
-        if (index === dayIndex) {
-          return {
-            ...day,
-            tasks: day.tasks.filter((task, index) => {
-              if (index === taskIndex) {
-                return false;
-              } else return true;
-            }),
-          };
-        }
-        return day;
-      })
-    );
-  };
-
   const toggleTask = (dayIndex, taskIndex) => {
     setDays(
       days.map((day, index) => {
@@ -79,6 +62,24 @@ const App = () => {
       })
     );
   };
+  const Deletetask = (dayIndex, taskIndex) => {
+    setDays(
+      days.map((day, index) => {
+        if (index === dayIndex) {
+          return {
+            ...day,
+            tasks: day.tasks.filter((task, index) => {
+              if (index === taskIndex) {
+                return false;
+              } else return true;
+            }),
+          };
+        }
+        return day;
+      })
+    );
+  };
+
   return (
     <div>
       {state === "VIEW" ? (
@@ -88,8 +89,8 @@ const App = () => {
             days={days}
             createTask={createTask}
             toggleTask={toggleTask}
+            Deletetask={Deletetask}
             remove={remove}
-            removeTask={removeTask}
           />
         </React.Fragment>
       ) : (
